@@ -1,23 +1,14 @@
-# Run DB with docker
+# Run using Docker compose
+This application can be ran using docker compose. The docker compose file will start a postgres database and the application.
+## Build the project
+```shell
+mvn clean package
+```
 
-Build the docker image:
-
-    docker build -t postgres-db .
-
-Run the docker image:
-
-    docker run --name postgres-db \
-    -e POSTGRES_USER=clara \
-    -e POSTGRES_PASSWORD=clara123 \
-    -e POSTGRES_DB=discography \
-    -p 5432:5432 \
-    -d postgres-db
-
-# Run the app
-
-You can run it using intellij or using the command line:
-
-    mvn spring-boot:run
+## Build and run the docker compose
+```shell
+docker-compose up --build
+```
 
 # Swagger
 

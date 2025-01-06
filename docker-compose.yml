@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  discog-db:
+    image: postgres:latest
+    container_name: discog-db
+    environment:
+      POSTGRES_USER: clara
+      POSTGRES_PASSWORD: clara123
+      POSTGRES_DB: discography
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/main/resources/sql/model.sql:/docker-entrypoint-initdb.d/model.sql
+
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-boot-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discog-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://discog-db:5432/discography
+      SPRING_DATASOURCE_USERNAME: clara
+      SPRING_DATASOURCE_PASSWORD: clara123
